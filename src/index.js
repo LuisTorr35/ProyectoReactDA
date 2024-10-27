@@ -1,13 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Login from './componentes/InicioSesion';
+import Register from "./componentes/RegistroUsuario";
+import Librohub from "./componentes/LibroHub";
+import LoginSeguro from "./rutasegura/Auth";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/",
+    element: <LoginSeguro />,
+    children: [
+      {
+        path: "/libreria",
+        element: <Librohub />
+      }
+    ]
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
